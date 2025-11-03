@@ -1,0 +1,53 @@
+pipeline {
+    agent any
+
+    environment {
+        REPO_URL = 'https://github.com/TimeSync-Grupo-07/Lambda_functions-Python.git'
+        BRANCH = 'Dev'
+        LAMBDA_FUNCTION_NAME = 'timesync-backup-function'
+        ZIP_FILE = 'lambda_backup.zip'
+        WORK_DIR = 'lambda_backup_function'
+    }
+
+    stages {
+
+        stage('🧭 Checkout do repositório') {
+            steps {
+                git branch: "${BRANCH}", url: "${REPO_URL}"
+            }
+        }
+
+        stage('📦 Compactar função Lambda') {
+            steps {
+                dir("${WORK_DIR}") {
+                    // Cria o ZIP sem incluir a pasta raiz
+                    sh """
+                        rm -f ../${ZIP_FILE}
+                        zip -r ../${ZIP_FILE} ./*
+                    """
+                }
+            }
+        }
+
+        stage('🚀 Deploy na AWS Lambda') {
+            steps {
+                sh """
+                    echo "➡️ Atualizando função Lambda: ${LAMBDA_FUNCTION_NAME}"
+                    aws lambda update-function-code \
+                        --function-name ${LAMBDA_FUNCTION_NAME} \
+                        --zip-file fileb://${ZIP_FILE} \
+                        --publish
+                """
+            }
+        }
+    }
+
+    post {
+        success {
+            echo "✅ Deploy concluído com sucesso para ${LAMBDA_FUNCTION_NAME}"
+        }
+        failure {
+            echo "❌ Falha no deploy. Verifique os logs acima."
+        }
+    }
+}

@@ -9,3 +9,4 @@ services:
     volumes:
       - ./jenkins_home:/var/jenkins_home
       - ./jenkins_home/pipelines:/var/jenkins_home/pipelines
+      - ~/.aws:/root/.aws:ro  # 🔥 monta as credenciais AWS do host

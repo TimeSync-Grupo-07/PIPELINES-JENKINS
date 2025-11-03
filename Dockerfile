@@ -2,14 +2,17 @@ FROM jenkins/jenkins:lts
 
 USER root
 
-# Instalar Docker CLI
+# Instalar Docker CLI + AWS CLI + ferramentas básicas
 RUN apt-get update && apt-get install -y \
     docker.io \
+    awscli \
+    zip \
+    git \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
 # Criar grupo docker com GID dinâmico (será sobrescrito pelo host)
-RUN groupadd -g  docker 116 || true
+RUN groupadd -g docker 116 || true
 RUN usermod -aG docker jenkins
 
 # Plugins
