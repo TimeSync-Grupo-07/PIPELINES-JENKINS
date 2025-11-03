@@ -3,10 +3,10 @@ pipeline {
 
     environment {
         REPO_URL = 'https://github.com/TimeSync-Grupo-07/Lambda_functions-Python.git'
-        BRANCH = 'main'
-        LAMBDA_FUNCTION_NAME = 'timesync-backup-function'
+        BRANCH = 'Dev'
+        LAMBDA_FUNCTION_NAME = 'timesync-process-step2-function'
         ZIP_FILE = 'lambda_backup.zip'
-        WORK_DIR = 'timesync-backup-function'
+        WORK_DIR = 'timesync-process-step2-function'
     }
 
     stages {
