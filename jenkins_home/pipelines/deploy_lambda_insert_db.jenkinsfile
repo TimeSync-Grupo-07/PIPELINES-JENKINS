@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         REPO_URL = 'https://github.com/TimeSync-Grupo-07/Lambda_functions-Python.git'
-        BRANCH = 'Dev'
+        BRANCH = 'main'
         LAMBDA_FUNCTION_NAME = 'timesync-insert-db-function'
         ZIP_FILE = 'lambda_backup.zip'
         WORK_DIR = 'timesync-insert-db-function'
