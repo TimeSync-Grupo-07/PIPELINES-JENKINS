@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         REPO_URL = 'https://github.com/TimeSync-Grupo-07/Lambda_functions-Python.git'
-        BRANCH = 'Dev'
+        BRANCH = 'main'
         LAMBDA_FUNCTION_NAME = 'timesync-process-trusted-function'
         ZIP_FILE = 'lambda_backup.zip'
         WORK_DIR = 'timesync-process-trusted-function'
@@ -20,7 +20,6 @@ pipeline {
         stage('📦 Compactar função Lambda') {
             steps {
                 dir("${WORK_DIR}") {
-                    // Cria o ZIP sem incluir a pasta raiz
                     sh """
                         rm -f ../${ZIP_FILE}
                         zip -r ../${ZIP_FILE} ./*
